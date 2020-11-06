@@ -8,4 +8,15 @@
       right: 0.41rem !important;
     }
   }
+
+  nb-user {
+    .user-picture {
+      background-size: contain !important;
+      background-position: center !important;
+    }
+  }
+
+  $nb-themes: nb-register-theme((
+    user-picture-box-background-color: color('white')
+  ), dark, dark);
 }
