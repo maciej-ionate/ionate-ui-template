@@ -17,6 +17,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
+    title: 'Examples',
+    icon: 'question-mark-circle-outline',
+    children: [
+      {
+        title: 'Example',
+        link: '/pages/examples/example',
+      },
+    ],
+  },
+  {
     title: 'Layout',
     icon: 'layout-outline',
     children: [
