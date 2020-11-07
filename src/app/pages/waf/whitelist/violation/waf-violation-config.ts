@@ -1,4 +1,4 @@
-import { ServiceInstance } from "../../model/service-instance";
+import { ServiceInstance } from '../../model/service-instance';
 
 export class WafViolationConfig {
   ruleId: string;
