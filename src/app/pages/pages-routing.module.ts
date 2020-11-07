@@ -9,18 +9,18 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
-      path: 'examples',
-      loadChildren: () => import('./examples/examples.module')
-        .then(m => m.ExamplesModule),
-    },
-    {
       path: 'miscellaneous',
       loadChildren: () => import('./miscellaneous/miscellaneous.module')
         .then(m => m.MiscellaneousModule),
     },
     {
+      path: 'waf',
+      loadChildren: () => import('./waf/waf.module')
+        .then(m => m.WafModule),
+    },
+    {
       path: '',
-      redirectTo: 'examples',
+      redirectTo: 'waf',
       pathMatch: 'full',
     },
     {

@@ -2,12 +2,12 @@ import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Examples',
-    icon: 'question-mark-circle-outline',
+    title: 'Web Application Firewall',
+    icon: 'settings-2-outline',
     children: [
       {
-        title: 'Example',
-        link: '/pages/examples/example',
+        title: 'Summary',
+        link: '/pages/waf',
       },
     ],
   },

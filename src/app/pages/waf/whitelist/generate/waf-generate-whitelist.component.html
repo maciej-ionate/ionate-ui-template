@@ -1,0 +1,23 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title">{{modalHeader}}</h4>
+  </div>
+  <div class="modal-body" [innerHtml]="modalContent"></div>
+  <div class="modal-footer">
+    <button class="btn btn-success"
+            [disabled]="status.inProgress.generateWhitelist"
+            (click)="generateWhitelist()">
+      <i class="fa fa-check" *ngIf="!status.inProgress.generateWhitelist; else inProgressIcon"></i>
+      <ng-template #inProgressIcon>
+        <i class="fa fa-spinner fa-spin"></i>
+      </ng-template>
+      <span>Yes</span>
+    </button>
+    <button class="btn btn-danger"
+            [disabled]="status.inProgress.generateWhitelist"
+            (click)="closeModalWithEmptyWhitelistCandidates()">
+      <i class="fa fa-times"></i>
+      <span>No</span>
+    </button>
+  </div>
+</div>

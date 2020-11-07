@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card title="{{serviceInstance.name}} - Manage WAF Whitelist" baCardClass="with-scroll">
+
+      <form class="form-horizontal">
+        <div class="form-group row waf-whitelist-candidate-low-row">
+          <label class="col-md-2 col-form-label">Choose whitelist version:</label>
+          <div class="col-md-10">
+            <select id="whitelistVersions"
+                    name="whitelistVersions"
+                    class="form-control waf-whitelist-candidate-version-select"
+                    [disabled]="status.inProgress.loadWhitelistCandidatesVersions || whitelistCandidateVersions.length === 0"
+                    [(ngModel)]="selectedWhitelistVersion">
+              <option *ngFor="let whitelistVersion of whitelistCandidateVersions" [ngValue]="whitelistVersion"
+                      [selected]="whitelistVersion === selectedWhitelistVersion">Whitelist Candidates V.{{whitelistVersion.value}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-info"
+                    [disabled]="
+                      !selectedWhitelistVersion ||
+                      status.inProgress.loadWhitelistCandidates ||
+                      status.inProgress.loadWhitelistCandidatesVersions ||
+                      status.inProgress.generateWhitelistCandidates"
+                    title="Load Whitelist Candidates"
+                    (click)="loadWhitelistCandidates(serviceInstance, selectedWhitelistVersion)">
+              <i class="fa fa-refresh" *ngIf="!status.inProgress.loadWhitelistCandidates; else inProgressIcon"></i>
+              <ng-template #inProgressIcon>
+                <i class="fa fa-spinner fa-spin"></i>
+              </ng-template>
+              <span> Load Selected Whitelist Candidates</span>
+            </button>
+            <button type="submit" class="btn btn-success pull-right"
+                    [disabled]="
+                      status.inProgress.loadWhitelistCandidates ||
+                      status.inProgress.loadWhitelistCandidatesVersions ||
+                      status.inProgress.generateWhitelistCandidates"
+                    title="Generate Whitelist Candidates"
+                    (click)="generateAnotherWhitelistCandidates()">
+              <i class="fa fa-plus" *ngIf="!status.inProgress.generateWhitelistCandidates; else inProgressIcon"></i>
+              <ng-template #inProgressIcon>
+                <i class="fa fa-spinner fa-spin"></i>
+              </ng-template>
+              <span>Generate New Whitelist Candidates</span>
+            </button>
+          </div>
+        </div>
+      </form>
+      <br/>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)"></ng2-smart-table>
+
+      <div class="row waf-whitelist-candidate-action-buttons">
+        <div class="col-md-12">
+          <button class="btn btn-primary"
+                  type="submit"
+                  [disabled]="status.inProgress.applyWhitelistCandidates || whitelistCandidates.length === 0"
+                  (click)="prepareAndSaveWhitelistCandidates()">
+            <i class="fa fa-check" *ngIf="!status.inProgress.applyWhitelistCandidates; else inProgressIcon"></i>
+            <ng-template #inProgressIcon>
+              <i class="fa fa-spinner fa-spin"></i>
+            </ng-template>
+            <span>Add Rules To Whitelist</span>
+          </button>
+
+          <button class="btn btn-danger pull-right"
+                  [disabled]="status.inProgress.loadWhitelistCandidatesVersions"
+                  (click)="goToWafConfigurations()">
+            <span>WAF Configurations</span>
+          </button>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>

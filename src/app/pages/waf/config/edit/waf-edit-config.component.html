@@ -1,0 +1,175 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card title="{{serviceInstance.name}} - Edit WAF Configuration" baCardClass="with-scroll">
+
+      <form #wafHtmlForm class="form-horizontal" id="myForm" #wafNgForm="ngForm" novalidate>
+
+        <div class="form-group has-success row low-row">
+          <label for="checkRule" class="col-md-3 col-form-label">Check Rule</label>
+          <div class="col-md-9">
+            <select id="checkRule"
+                    name="checkRule"
+                    class="form-control"
+                    [(ngModel)]="selectedWafCheckRuleTemplate"
+                    [disabled]="status.inProgress.ruleTemplate">
+              <option *ngFor="let wafCheckRuleTemplate of wafCheckRuleTemplates"
+                      [ngValue]="wafCheckRuleTemplate"
+                      [selected]="wafCheckRuleTemplate === selectedWafCheckRuleTemplate">
+                {{wafCheckRuleTemplate.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group has-success row low-row">
+          <label for="ruleSet" class="col-md-3 col-form-label">Rule Set</label>
+          <div class="col-md-9">
+            <select id="ruleSet"
+                    name="ruleSet"
+                    class="form-control"
+                    [(ngModel)]="selectedWafRuleTemplate"
+                    [disabled]="status.inProgress.checkRuleTemplate">
+              <option *ngFor="let wafRuleTemplate of wafRuleTemplates"
+                      [ngValue]="wafRuleTemplate"
+                      [selected]="wafRuleTemplate === selectedWafRuleTemplate">
+                {{wafRuleTemplate.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group has-success row low-row">
+          <label for="learningMode" class="col-md-3 col-form-label">Learning Mode</label>
+          <div class="col-md-9">
+            <select id="learningMode"
+                    name="learningMode"
+                    class="form-control"
+                    [(ngModel)]="learningMode" [disabled]="status.inProgress.loadConfig">
+              <option value="true">Enabled</option>
+              <option value="false">Disabled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row low-row"
+             [ngClass]="{'has-danger': containerNameCtrl.dirty && containerNameCtrl.invalid, 'has-success': containerNameCtrl.valid}">
+          <label for="containerName" class="col-md-3 col-form-label">Container Name</label>
+          <div class="col-md-9">
+            <input type="text"
+                   class="form-control"
+                   [ngClass]="{
+                   'form-control-danger': containerNameCtrl.dirty && containerNameCtrl.invalid,
+                   'form-control-success': containerNameCtrl.valid
+                   }"
+                   id="containerName"
+                   name="containerName"
+                   placeholder="{{serviceInstance.name}}"
+                   required
+                   #containerNameCtrl="ngModel"
+                   [(ngModel)]="containerName">
+            <div class="form-control-feedback"
+                 *ngIf="containerNameCtrl.dirty && containerNameCtrl.invalid">Container name cannot be empty</div>
+            <div class="form-control-feedback"
+                 *ngIf="containerNameCtrl.valid">Correct!</div>
+            <small class="form-text text-muted">Please provide a valid container name</small>
+          </div>
+        </div>
+
+        <div class="form-group row low-row"
+             [ngClass]="{'has-danger': containerPortCtrl.dirty && containerPortCtrl.invalid, 'has-success': containerPortCtrl.valid}">
+          <label for="containerPort" class="col-md-3 col-form-label">Container Port</label>
+          <div class="col-md-9">
+            <input type="number"
+                   class="form-control"
+                   [ngClass]="{
+                   'form-control-danger': containerPortCtrl.dirty && containerPortCtrl.invalid,
+                   'form-control-success': containerPortCtrl.valid
+                   }"
+                   id="containerPort"
+                   name="containerPort"
+                   placeholder="31850"
+                   min="0"
+                   max="65535"
+                   required
+                   #containerPortCtrl="ngModel"
+                   [(ngModel)]="containerPort">
+            <div class="form-control-feedback"
+                 *ngIf="containerPortCtrl.dirty && containerPortCtrl.invalid">Container port cannot be empty</div>
+            <div class="form-control-feedback"
+                 *ngIf="containerPortCtrl.valid">Correct!</div>
+            <small class="form-text text-muted">Please provide a valid container port</small>
+          </div>
+        </div>
+
+        <div class="form-group row low-row"
+             [ngClass]="{'has-danger': mountPointCtrl.dirty && mountPointCtrl.invalid, 'has-success': mountPointCtrl.valid}">
+          <label for="proxyPass" class="col-md-3 col-form-label">Mount Point</label>
+          <div class="col-md-9">
+            <input type="text"
+                   class="form-control"
+                   [ngClass]="{
+                   'form-control-danger': mountPointCtrl.dirty && mountPointCtrl.invalid,
+                   'form-control-success': mountPointCtrl.valid
+                   }"
+                   id="mountPoint"
+                   name="mountPoint"
+                   placeholder="/my-app/api"
+                   required
+                   #mountPointCtrl="ngModel"
+                   [(ngModel)]="mountPoint">
+            <div class="form-control-feedback"
+                   *ngIf="mountPointCtrl.dirty && mountPointCtrl.invalid">Service instance mount point cannot be empty</div>
+            <div class="form-control-feedback"
+                 *ngIf="mountPointCtrl.valid">Correct!</div>
+            <small class="form-text text-muted">Please provide a valid service instance mount point</small>
+          </div>
+        </div>
+
+        <div class="form-group row low-row"
+             [ngClass]="{'has-danger': proxyPassCtrl.dirty && proxyPassCtrl.invalid, 'has-success': proxyPassCtrl.valid}">
+          <label for="proxyPass" class="col-md-3 col-form-label">Proxy Pass</label>
+          <div class="col-md-9">
+            <input type="text"
+                   class="form-control"
+                   [ngClass]="{
+                   'form-control-danger': proxyPassCtrl.dirty && proxyPassCtrl.invalid,
+                   'form-control-success': proxyPassCtrl.valid
+                   }"
+                   id="proxyPass"
+                   name="proxyPass"
+                   placeholder="http://myservice"
+                   required
+                   #proxyPassCtrl="ngModel"
+                   [(ngModel)]="proxyPass">
+            <div class="form-control-feedback"
+                   *ngIf="proxyPassCtrl.dirty && proxyPassCtrl.invalid">Service instance proxy pass cannot be empty</div>
+            <div class="form-control-feedback"
+                 *ngIf="proxyPassCtrl.valid">Correct!</div>
+            <small class="form-text text-muted">Please provide a valid service instance proxy pass</small>
+          </div>
+        </div>
+      </form>
+
+      <div class="form-actions" style="padding-top:10px;">
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-primary"
+                    type="submit"
+                    [disabled]="wafNgForm.invalid || status.inProgress.saveConfig"
+                    (click)="saveWafConfiguration()">
+              <i class="fa fa-check" *ngIf="!status.inProgress.saveConfig; else inProgressIcon"></i>
+              <ng-template #inProgressIcon>
+                <i class="fa fa-spinner fa-spin"></i>
+              </ng-template>
+              <span>Save</span>
+            </button>
+
+            <button class="btn btn-danger pull-right" (click)="goToWafConfigurations()">
+              <span>WAF Configurations</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
