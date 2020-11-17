@@ -6,6 +6,6 @@ export class WafApi {
   readonly naxsiProxyUrl: string;
 
   constructor() {
-    this.naxsiProxyUrl = process.env.JAVA_HOME;
+    this.naxsiProxyUrl = 'https://k8-naxsi-demo.ionate.io';
   }
 }

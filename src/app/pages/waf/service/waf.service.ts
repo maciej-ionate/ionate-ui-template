@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
-import { ServiceInstance } from '../model/service-instance';
-import { Observable } from 'rxjs/Observable';
-import { WafConfiguration } from '../model/waf-configuration';
-import { WhitelistCandidates } from '../whitelist/model/whitelist-candidates';
-import { WhitelistCandidate } from '../whitelist/model/whitelist-candidate';
-import { WafCheckrule } from '../model/waf-checkrule';
-import { WafRule } from '../model/waf-rule';
-import { Version } from '../model/version';
-import { WhitelistContainer } from '../whitelist/model/whitelist-container';
-import { Violation } from '../whitelist/model/violation';
-import { HttpClient } from '@angular/common/http';
-import { WafApi } from '../waf-api';
+import {Injectable} from '@angular/core';
+import {ServiceInstance} from '../model/service-instance';
+import {Observable} from 'rxjs/Observable';
+import {WafConfiguration} from '../model/waf-configuration';
+import {WhitelistCandidates} from '../whitelist/model/whitelist-candidates';
+import {WhitelistCandidate} from '../whitelist/model/whitelist-candidate';
+import {WafCheckrule} from '../model/waf-checkrule';
+import {WafRule} from '../model/waf-rule';
+import {Version} from '../model/version';
+import {WhitelistContainer} from '../whitelist/model/whitelist-container';
+import {Violation} from '../whitelist/model/violation';
+import {HttpClient} from '@angular/common/http';
+import {WafApi} from '../waf-api';
+import {map} from 'rxjs/operators';
+import {WafResponse} from '../model/waf-response';
 
 @Injectable()
 export class WafService {
@@ -51,12 +53,20 @@ export class WafService {
   }
 
   getAllWafConfigurations(tenantId: string): Observable<WafConfiguration[]> {
-    return this.http.get<WafConfiguration[]>(`${this.baseUrl}/services/${tenantId}`);
+    return this.http.get<WafResponse>(`${this.baseUrl}/services/${tenantId}`)
+      .pipe(
+        map(response => response.resultObject),
+        map(resultObject => resultObject as WafConfiguration[])
+      );
   }
 
   getWafConfiguration(serviceInstance: ServiceInstance): Observable<WafConfiguration> {
     return this.http
-      .get<WafConfiguration>(`${this.baseUrl}/services/${serviceInstance.tenantId}/${serviceInstance.id}`);
+      .get<WafResponse>(`${this.baseUrl}/services/${serviceInstance.tenantId}/${serviceInstance.id}`)
+      .pipe(
+        map(response => response.resultObject),
+        map(resultObject => resultObject as WafConfiguration)
+      );
   }
 
   getWhiteListCandidateVersions(serviceInstance: ServiceInstance): Observable<Version[]> {

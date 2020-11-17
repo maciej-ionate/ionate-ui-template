@@ -63,8 +63,8 @@ export class WafNewConfigComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadCheckRuleTemplates();
-    this.loadRuleTemplates();
+    // this.loadCheckRuleTemplates();
+    // this.loadRuleTemplates();
   }
 
   private loadCheckRuleTemplates() {

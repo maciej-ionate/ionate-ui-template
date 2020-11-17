@@ -1,131 +1,117 @@
-<div class="row">
-  <div class="col-md-12">
-    <nb-card>
+<nb-card>
+  <nb-card-header>Web Application Firewall Summary</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <nb-select class="waf-new-configuration-select"
+                 *ngIf="!customServiceInstanceMode"
+                 [disabled]="status.inProgress.loadServiceInstances || !serviceInstancesWithoutWaf || serviceInstancesWithoutWaf.length === 0"
+                 [(ngModel)]="selectedServiceInstance">
+        <nb-option *ngFor="let serviceInstance of serviceInstancesWithoutWaf" [value]="serviceInstance">
+          {{serviceInstance.name}}
+        </nb-option>
+      </nb-select>
 
-      <div class="waf-service-instance-menu">
-        <div class="pull-left">
-          <form class="form-inline waf-service-instance-list">
-            <div class="form-group">
-              <select id="serviceInstance"
-                      name="serviceInstance"
-                      class="form-control waf-new-configuration-select"
-                      *ngIf="!customServiceInstanceMode"
-                      [disabled]="status.inProgress.loadServiceInstances || !serviceInstancesWithoutWaf || serviceInstancesWithoutWaf.length === 0"
-                      [(ngModel)]="selectedServiceInstance">
-                <option *ngFor="let serviceInstance of serviceInstancesWithoutWaf" [ngValue]="serviceInstance"
-                        [selected]="serviceInstance.id === selectedServiceInstance.id">{{serviceInstance.name}}
-                </option>
-              </select>
-              <input name="custom-service-instance-name"
-                     class="form-control waf-custom-service-instance-input"
-                     type="text"
-                     placeholder="Service Instance Name"
-                     *ngIf="customServiceInstanceMode"
-                     [disabled]="status.inProgress.loadServiceInstances"
-                     [(ngModel)]="selectedServiceInstance.name">
-            </div>
-            <button type="submit" class="btn btn-primary"
-                    [disabled]="!selectedServiceInstance || status.inProgress.loadServiceInstances || !selectedServiceInstance.name"
-                    title="Create new WAF configuration" (click)="createWafConfiguration()">
-              <i class="fa fa-plus"></i><span> Add Configuration</span>
-            </button>
-          </form>
-          <a class="waf-custom-service-instance"
-             href="javascript:void(0);"
+      <input nbInput
+             name="custom-service-instance-name"
+             class="waf-custom-service-instance-input"
+             type="text"
+             placeholder="Service Instance Name"
              *ngIf="customServiceInstanceMode"
-             (click)="disableCustomServiceInstanceMode()">Let me choose a service instance from a list</a>
-          <a class="waf-custom-service-instance"
-             href="javascript:void(0);"
-             *ngIf="!customServiceInstanceMode"
-             (click)="enableCustomServiceInstanceMode()">I want to provide service name</a>
-        </div>
+             [disabled]="status.inProgress.loadServiceInstances"
+             [(ngModel)]="selectedServiceInstance.name"
+      >
+      &nbsp;&nbsp;
+      <button nbButton
+              title="Create new WAF configuration"
+              [disabled]="!selectedServiceInstance || status.inProgress.loadServiceInstances || !selectedServiceInstance.name"
+              (click)="createWafConfiguration()">
+        <i class="fa fa-plus"></i><span> Add Configuration</span>
+      </button>
+    </div>
 
-        <div class="pull-right" *ngIf="!customServiceInstanceMode">
-          <div class="form-inline pull-right waf-reload-section">
-            <button type="submit" class="btn btn-success waf-reload-btn"
-                    [disabled]="status.inProgress.loadServiceInstances || status.inProgress.loadWafConfigurations"
-                    title="Create new WAF configuration" (click)="getServiceInstances()">
-              <i class="fa fa-refresh" *ngIf="!status.inProgress.loadServiceInstances && !status.inProgress.loadWafConfigurations; else inProgressIcon"></i>
-              <ng-template #inProgressIcon>
-                <i class="fa fa-spinner fa-spin"></i>
-              </ng-template>
-              <span> Reload Configurations</span>
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <br/>
-      <table class="table table-hover table-bordered table-striped">
+    <div class="row">
+      <a class="waf-custom-service-instance"
+         href="javascript:void(0);"
+         *ngIf="customServiceInstanceMode"
+         (click)="disableCustomServiceInstanceMode()">Let me choose a service instance from a list</a>
+      <a class="waf-custom-service-instance"
+         href="javascript:void(0);"
+         *ngIf="!customServiceInstanceMode"
+         (click)="enableCustomServiceInstanceMode()">I want to provide service name</a>
+    </div>
+
+    <br/>
+
+    <div class="row">
+      <table class="table table-bordered">
         <thead>
-        <tr class="black-muted-bg">
-          <th class="col-12">Name</th>
+        <tr>
+          <th class="col-6">Name</th>
           <th class="action-col">Learning Mode</th>
           <th class="action-col waf-action-whitelist-header" style="">Whitelist</th>
-          <th class="action-col">Edit</th>
-          <th class="action-col">Delete</th>
+          <th class="action-col">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let serviceInstanceWithWaf of serviceInstancesWithWaf">
           <td>{{serviceInstanceWithWaf.name}}</td>
-          <td class="text-center">
+          <td>
             <i class="fa fa-circle fa-lg"
                [ngClass]="{
                'waf-learning-on': learningModeStatus(serviceInstanceWithWaf),
                'waf-learning-off': !learningModeStatus(serviceInstanceWithWaf)
-               }">&nbsp;&nbsp;</i>
-            <button class="btn btn-xs btn-info waf-toggle-btn"
+               }">&nbsp;</i>
+            <button nbButton
                     title="Toggle Learning Mode"
+                    size="tiny"
+                    status="primary"
                     [disabled]="status.inProgress[serviceInstanceWithWaf.id + '-learning-mode'] || status.inProgress.loadServiceInstances"
-                    (click)="toggleLearningMode(serviceInstanceWithWaf)">
-              <span *ngIf="!status.inProgress[serviceInstanceWithWaf.id + '-learning-mode']; else inProgressIcon">Toggle</span>
-              <ng-template #inProgressIcon>
-                <i class="fa fa-spinner fa-spin"></i>
-              </ng-template>
+                    (click)="toggleLearningMode(serviceInstanceWithWaf)">Toggle
             </button>
           </td>
-          <td class="text-center">
-            <button class="btn btn-xs btn-primary waf-whitelist-final-btn"
+          <td>
+            <button nbButton
                     title="Manage Whitelist"
+                    size="tiny"
                     [disabled]="status.inProgress.loadServiceInstances"
                     (click)="manageWafWhitelistFinal(serviceInstanceWithWaf)">
               <i class="fa fa-list"></i>
-              <span> Applied</span>
+              <span>&nbsp;Applied</span>
             </button>
-            <button class="btn btn-xs btn-success waf-whitelist-candidate-btn"
+            &nbsp;
+            <button nbButton
                     title="Manage Whitelist"
+                    size="tiny"
                     [disabled]="status.inProgress.loadServiceInstances"
                     (click)="manageWafWhitelistCandidate(serviceInstanceWithWaf)">
               <i class="fa fa-list"></i>
-              <span> Candidates</span>
+              <span>&nbsp;Candidates</span>
             </button>
           </td>
-          <td class="text-center">
-            <button class="btn btn-xs btn-warning"
+          <td>
+            <button nbButton
+                    size="tiny"
+                    status="warning"
                     title="Edit WAF Configuration"
                     [disabled]="status.inProgress.loadServiceInstances"
-                    (click)="editWafConfiguration(serviceInstanceWithWaf)">
-              <i class="fa fa-pencil"></i>
+                    (click)="editWafConfiguration(serviceInstanceWithWaf)">Edit
             </button>
-          </td>
-          <td class="text-center">
-            <button class="btn btn-xs btn-danger"
+            &nbsp;
+            <button nbButton
+                    size="tiny"
+                    status="danger"
                     title="Delete WAF configuration"
                     [disabled]="
                     status.inProgress[serviceInstanceWithWaf.id + '-delete'] ||
                     status.wafConfigurationDelScheduled[serviceInstanceWithWaf.id + '-delete'] ||
                     status.inProgress.loadServiceInstances"
-                    (click)="maybeDeleteWafConfiguration(serviceInstanceWithWaf)">
-              <i class="fa fa-trash" *ngIf="!status.inProgress[serviceInstanceWithWaf.id + '-delete']; else inProgressIcon"></i>
-              <ng-template #inProgressIcon>
-                <i class="fa fa-spinner fa-spin"></i>
-              </ng-template>
-            </button>
+                    (click)="maybeDeleteWafConfiguration(serviceInstanceWithWaf)">Delete</button>
           </td>
         </tr>
         </tbody>
       </table>
-    </nb-card>
-  </div>
-</div>
+    </div>
+
+  </nb-card-body>
+</nb-card>

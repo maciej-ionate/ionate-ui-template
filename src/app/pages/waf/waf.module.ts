@@ -10,14 +10,17 @@ import { WafGenerateWhitelistComponent } from './whitelist/generate/waf-generate
 import { WafViolationComponent } from './whitelist/violation/waf-violation.component';
 import { HttpClientModule } from '@angular/common/http';
 import { WafApi } from './waf-api';
-import { NbCardModule } from '@nebular/theme';
+import { NbCardModule, NbSelectModule, NbButtonModule, NbInputModule } from '@nebular/theme';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
+    NbButtonModule,
     NbCardModule,
+    NbInputModule,
+    NbSelectModule,
     Ng2SmartTableModule,
     WafRoutingModule
   ],

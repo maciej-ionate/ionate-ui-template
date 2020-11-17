@@ -10,10 +10,8 @@ export class InstanceService {
 
   private baseUrl: string;
 
-  constructor(
-    private http: HttpClient,
-    private wafApi: WafApi
-  ) {
+  constructor(private http: HttpClient,
+              private wafApi: WafApi) {
     // this.baseUrl = `${wafApi.configUrl}/ionate-config/api/v1`;
   }
 

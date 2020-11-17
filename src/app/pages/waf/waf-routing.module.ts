@@ -13,24 +13,25 @@ export const routes: Routes = [
     path: '',
     component: WafComponent,
     children: [
-      {
-        path: 'tenant/id/:tenantId/instance/name/:name/id/:instanceId/new',
-        component: WafNewConfigComponent
-      },
-      {
-        path: 'tenant/id/:tenantId/instance/name/:name/id/:instanceId/edit',
-        component: WafEditConfigComponent
-      },
-      {
-        path: 'tenant/id/:tenantId/instance/name/:name/id/:instanceId/whitelist/candidate',
-        component: WafWhitelistCandidateComponent
-      },
-      {
-        path: 'tenant/id/:tenantId/instance/name/:name/id/:instanceId/whitelist/stored',
-        component: WafWhitelistComponent
-      }
+
     ],
   },
+  {
+    path: 'tenant/id/:tenantId/instance/name/:name/id/:instanceId/new',
+    component: WafNewConfigComponent
+  },
+  {
+    path: 'tenant/id/:tenantId/instance/name/:name/id/:instanceId/edit',
+    component: WafEditConfigComponent
+  },
+  {
+    path: 'tenant/id/:tenantId/instance/name/:name/id/:instanceId/whitelist/candidate',
+    component: WafWhitelistCandidateComponent
+  },
+  {
+    path: 'tenant/id/:tenantId/instance/name/:name/id/:instanceId/whitelist/stored',
+    component: WafWhitelistComponent
+  }
 ];
 
 @NgModule({
