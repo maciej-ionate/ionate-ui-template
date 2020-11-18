@@ -92,24 +92,19 @@ $nb-themes: nb-register-theme((
 $nb-themes: nb-register-theme((
   color-basic-100: rgb(102, 102, 102),
 
-  background-basic-color-3: rgb(240, 243, 244),                                   //                                                             color-basic-1000
-  border-basic-color-3: rgba(0,0,0,.125),                                         //                                                             color-basic-1000
+  background-basic-color-3: rgb(240, 243, 244),
+  border-basic-color-3: rgba(0, 0, 0, 0.125),
 
-  card-background-color: color('white'),                                          // background-basic-color-1                                 -> color-basic-800
-  card-text-color: rgb(102, 102, 102),                                            // card-text-color            -> text-basic-color           -> color-basic-100
+  card-background-color: color('white'),
+  card-text-color: rgb(102, 102, 102),
   card-border-style: none,
   card-shadow: shadow,
 
-  //card-header-text-color: rgb(102, 102, 102),                                     // card-header-text-color     -> text-basic-color           -> color-basic-100
-
-  footer-background-color: rgb(240, 243, 244),                                    // background-basic-color-1                                 -> color-basic-800
-  //footer-text-color: rgb(102, 102, 102),                                          // text-basic-color                                         -> color-basic-100
+  footer-background-color: rgb(240, 243, 244),
   footer-divider-style: none,
   footer-shadow: none,
 
-  layout-scrollbar-background-color: color('white'),                              // scrollbar-background-color -> background-basic-color-2   -> color-basic-900,
-
-  //option-selected-background-color: color('white'),                               // color-primary-default                                    -> color-primary-500
+  layout-scrollbar-background-color: color('white'),
 
   nb-select-background-color: rgb(240, 243, 244),
   option-list-background-color: nb-select-background-color,
@@ -118,12 +113,12 @@ $nb-themes: nb-register-theme((
   option-selected-background-color: nb-select-background-color,
   option-disabled-background-color: nb-select-background-color,
 
-  select-outline-primary-disabled-background-color: nb-select-background-color,   // background-basic-color-2
-  select-outline-primary-focus-background-color: nb-select-background-color,      // background-basic-color-1
-  select-outline-primary-hover-background-color: nb-select-background-color,      // background-basic-color-3
-  select-outline-primary-background-color: nb-select-background-color,            // background-basic-color-2
+  select-outline-primary-disabled-background-color: nb-select-background-color,
+  select-outline-primary-focus-background-color: nb-select-background-color,
+  select-outline-primary-hover-background-color: nb-select-background-color,
+  select-outline-primary-background-color: nb-select-background-color,
 
-  shadow: 0 5px 5px 0 rgba(0,0,0,0.25),
+  shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25),
 
   user-picture-box-background-color: color('white'),
 ), ionate, dark);
