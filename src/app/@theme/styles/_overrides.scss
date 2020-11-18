@@ -16,7 +16,35 @@
     }
   }
 
-  $nb-themes: nb-register-theme((
-    user-picture-box-background-color: color('white')
-  ), dark, dark);
+  //.select-button {
+  //  background-color: color('white') !important;
+  //  border: 1px solid rgba(0,0,0,.125) !important;
+  //}
+
+  //$nb-themes: nb-register-theme((
+  //
+  //  background-basic-color-3: rgb(240, 243, 244),
+  //  border-basic-color-3: rgba(0,0,0,.125),
+  //
+  //  card-background-color: color('white'),
+  //  card-text-color: rgb(102, 102, 102),
+  //  card-border-style: none,
+  //  card-shadow: shadow,
+  //
+  //  card-header-text-color: rgb(102, 102, 102),
+  //
+  //  footer-background-color: rgb(240, 243, 244),
+  //  footer-text-color: rgb(102, 102, 102),
+  //  footer-divider-style: none,
+  //  footer-shadow: none,
+  //
+  //  //layout-background-color: rgb(240, 243, 244),
+  //  layout-scrollbar-background-color: color('white'),
+  //
+  //  option-selected-background-color: color('white'),
+  //
+  //  shadow: 0 5px 5px 0 rgba(0,0,0,0.25),
+  //
+  //  user-picture-box-background-color: color('white'),
+  //), dark, dark);
 }
