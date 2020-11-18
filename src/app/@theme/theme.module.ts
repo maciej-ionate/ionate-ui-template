@@ -35,7 +35,7 @@ import {
   TwoColumnsLayoutComponent,
 } from './layouts';
 import { DARK_THEME } from './styles/theme.dark';
-import { IONATE_DARK_THEME } from './styles/theme.ionate-dark';
+import { IONATE_THEME } from './styles/theme.ionate';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -80,9 +80,9 @@ export class ThemeModule {
       providers: [
         ...NbThemeModule.forRoot(
           {
-            name: 'dark',
+            name: 'ionate',
           },
-          [ DARK_THEME, IONATE_DARK_THEME ],
+          [ DARK_THEME, IONATE_THEME ],
         ).providers,
       ],
     };

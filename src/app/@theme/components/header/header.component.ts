@@ -23,8 +23,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       name: 'Dark',
     },
     {
-      value: 'ionate-dark',
-      name: 'Ionate Dark',
+      value: 'ionate',
+      name: 'Ionate Theme',
     }
   ];
 
